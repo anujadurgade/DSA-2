@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+
+void heapify(int a[],int n,int i)
+{
+    int smallest=i;
+    int left=2*i+1;
+    int right=2*i+2;
+
+    if(left<n&&a[left]<a[smallest])
+        smallest=left;
+    if(right<n&&a[right]<a[smallest])
+        smallest=right;
+
+    if(smallest!=i)
+    {
+
+        int temp=a[i];
+        a[i]=a[smallest];
+        a[smallest]=temp;
+
+        heapify(a,n,smallest);
+    }
+}
+
+void heapsort(int a[],int n)
+{
+    for(int i=n/2-1;i>=0;i--)
+        heapify(a,n,i);
+    for(int i=n-1;i>=0;i--)
+    {
+        int temp=a[0];
+        a[0]=a[i];
+        a[i]=temp;
+
+        heapify(a,i,0);
+    }
+}
+void printArr(int a[],int n)
+{
+    for(int i=0;i<n;++i)
+    {
+        cout<<a[i]<<" ";
+    }
+}
+int main()
+{
+
+    int a[]={47,9,22,42,27,25,0};
+    int n=sizeof(a)/sizeof(a[0]);
+    cout<<"\n Before sorting array elements are-\n";
+    printArr(a,n);
+    heapsort(a,n);
+    cout<<"\n After sorting elements are-\n";
+    printArr(a,n);
+    return 0;
+}
+
+OUTPUT:
+Before sorting array elements are-
+47 9 22 42 27 25 0
+ After sorting elements are-
+47 42 27 25 22 9 0
+Process returned 0 (0x0)   execution time : 0.032 s
+Press any key to continue.
