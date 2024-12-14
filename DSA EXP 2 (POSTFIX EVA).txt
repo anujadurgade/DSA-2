@@ -1,0 +1,68 @@
+POSTFIX EVALUATION
+
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int postfixEvaluation(int operand1, int operand2,
+                     char operation)
+{
+    switch (operation) {
+    case '+':
+        return operand1 + operand2;
+    case '-':
+        return operand1 - operand2;
+    case '*':
+        return operand1 * operand2;
+    case '/':
+        return operand1 / operand2;
+    default:
+        return 0;
+    }
+}
+
+
+int evaluatePostfixExpression(const string& expression)
+{
+    stack<int> stack;
+
+    for (char c : expression) {
+        if (isdigit(c)) {
+
+            stack.push(c - '0');
+        }
+        else {
+
+            int operand2 = stack.top();
+            stack.pop();
+            int operand1 = stack.top();
+            stack.pop();
+
+
+            int result
+                = postfixEvaluation(operand1, operand2, c);
+            stack.push(result);
+        }
+    }
+
+    return stack.top();
+}
+int main()
+{
+
+    string expression2 = "73*4+";
+    int result = evaluatePostfixExpression(expression2);
+    cout << "Result of Postfix Expression \"" << expression2
+         << "\" is: " << result << endl;
+
+    return 0;
+}
+
+OUTPUT:
+
+Result of Postfix Expression "73*4+" is: 25
+
+Process returned 0 (0x0)   execution time : 0.016 s
+Press any key to continue.
+
